@@ -14,15 +14,20 @@ class Game:
     @title.setter
     def title(self, title):
         # Setter method for the title property, ensuring it's a non-empty string
-        if isinstance(title, str) and not hasattr(self, "title") and title: # Checking if the title is a string of appropriate length and if it's not already set
+        if isinstance(title, str) and not hasattr(self, "_title") and title: # Checking if the title is a string of appropriate length and if it's not already set
             self._title = title  # Setting the title if conditions are met
 
+    # # BEN's SOLUTION
+    # @title.setter
+    # def title(self, title):
+    #     if isinstance(title, str) and len(title) > 0 and hasattr(self, '_title') # hasattr() first object as 'self' and a second attribute of _title. If the second attribute is not set, then the second attribute is set to an empty string.
+    #         self._title = title  
     def results(self):
         # Returns a list of results associated with this game
         game_results = [] # Creating a list to store the results
-        for result in Result.all: # Instances = Result
-            if result.game is self: # Checking if the result is associated with this game 
-                game_results.append(result) # Appending the result to the list of results
+        for result_obj in Result.all: # Instances = Result
+            if result_obj.game is self: # Checking if the result is associated with this game 
+                game_results.append(result_obj) # Appending the result to the list of results
         return game_results # Returning the list of results associated with this game 
 
     def players(self):
@@ -68,9 +73,9 @@ class Player:
     def results(self):
         # Returns a list of results associated with this player
         result_list = [] # Creating a list to store the results
-        for result in Result.all: # Instances = Result
-            if result.player is self: # Checking if the result is associated with this player 
-                result_list.append(result) # Appending the result to the list of results
+        for result_obj in Result.all: # for the player object in Result.all 
+            if result_obj.player is self: # Checking if the result is associated with this player object
+                result_list.append(result_obj) # Appending the result to the list of results
         return result_list # Returning the list of results associated with this player 
 
     def games_played(self): 
@@ -106,7 +111,7 @@ class Result:
         self.player = player  # Setting the player associated with the result
         self.game = game  # Setting the game associated with the result
         self.score = score  # Setting the score of the result
-        Result.all.append(self)  # Appending the current instance to the list of all results
+        Result.all.append(self)  # add this object to Result.all, which is a list of all instances of Result.
 
     @property
     def score(self):
