@@ -9,7 +9,7 @@ class Game:
 
     @property
     def title(self):
-        return self._title  # Getter method for the title property
+        return self._title  # Getter method for the title property to read the attribute
     
     @title.setter
     def title(self, title):
@@ -39,14 +39,14 @@ class Game:
         results = player.results() # Getting the results associated with the player
         for result in results: # Instances = Result
             if result.game is self: # Checking if the result is associated with this game 
-                scores.append(result.score) # Appending the score to the list of scores
+                scores.append(result.score) # Add the score to the list of scores
         if len(scores) > 0: # Checking if there are scores 
             return mean(scores)  # Calculating the mean of scores
         else:
             return 0  # Returning 0 if there are no scores
 
     def __repr__(self):
-        return f"<Game Title: {self.title}>"  # Representation of the game object
+        return f"Game Title: {self.title}"  # Representation of the game object
 
 class Player:
     all = []  # Class variable to store all instances of Player
@@ -128,8 +128,28 @@ class Result:
         if isinstance(player, Player): # checking if the player is an instance of Player
             self._player = player # setting the player if conditions are met
 
+    def __repr__(self):
+        return f"Result: {self.player.username}, Game: {self.game}, Score: {self.score}"
 
-# game_title_1 = Game("Risk of Rain 1")
+
+game_1 = Game("Risk of Rain")
+player_1 = Player("GingerJoo")
+result_game_played_1 = Result(player_1, game_1, 1455)
+result_game_played_2 = Result(player_1, game_1, 2567)
 
 
-# print(game_title_1)
+
+player_2 = Player("Scurffy Panda")
+game_2 = Game("Baldurs Gate")
+score_2 = 5000
+result_game_played_3 = Result(player_2, game_2, score_2)
+result_game_played_4 = Result(player_2, game_2, 4300)
+
+game_4 = Game("") # line 17 with no argument will crash the code. will reutrn Null, becuase it is empty and there is nothing there. 'and not hasattr(self, "title") and title:'
+
+
+
+# print(game_1.title)
+# print(game_1.results())
+# print(game_1.average_score(player_1))
+print(player_2.games_played())
